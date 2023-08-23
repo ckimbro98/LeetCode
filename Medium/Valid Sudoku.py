@@ -1,3 +1,29 @@
+"""
+# Intuition
+We need to effectively check if 27 arrays are valid, since we need to check all rows, all columns, and all boxes (there are mathematical proofs out there that say that we don't need to check all 27 arrays, but for simplicity I decided to check all 27)
+
+# Approach
+For rows:
+We only need to use one array, as for every iteration of the inner loop, we iterate through an entire row. Thus, we can store the values of a given row to the array row. At the end of one iteration of the inner loop, provided the row is valid, we can then erase the array row and use it for the next row.
+
+For columns:
+In contrast, we need to use nine arrays for the columns. Once we approach the ninth row, we can then check if the columns are valid.
+
+For boxes:
+We only need to use three rows, as when we reach the end of the 3rd, 6th, and 9th rows, we can then check the three boxes and determine if they are valid.
+
+To determine if an array is valid:
+I sort the array, which means duplicate values that exist would be next to each other. If there are duplicate values in the array, return False.
+
+# Complexity
+- Time complexity:
+Sorting arrays to find duplicates: O(n log n)
+Since the rest of the operations happen in linear time, this dominates.
+
+- Space complexity:
+Creating 27 lists of length 9: O(27*9) -> O(n)
+"""
+
 class Solution(object):
     def has_duplicates(self, arr):
         arr.sort()
@@ -12,12 +38,6 @@ class Solution(object):
         return True
 
     def isValidSudoku(self, board):
-        """
-        We need to check if 27 arrays of length 9 are all valid (we check if an array is valid by sorting and determining if there are duplicates)
-        To check all rows, we can simply use one array, since the nested for loop iterates through one row and we can update the array at the end of the inner loop
-        To check all boxes, we can use three arrays, as the boxes will get filled at the end of the 3rd, 6th, and 9th rows
-        To check all columns, we need to have nine arrays, as we need to store that information until we reach the 9th row and then we can check if a column is valid
-        """
         row = []
         col1 = []
         col2 = []
@@ -62,7 +82,7 @@ class Solution(object):
                 if i < 9 and i >= 6:
                     box3.append(board[i][j])
                 
-            # Reached end of row, check rowSum
+            # Reached end of row, check row
             if not self.has_duplicates(row):
                 return False
             row = []
@@ -78,7 +98,7 @@ class Solution(object):
                     return False
                 box3 = []
 
-            if j == 8: # Reached end of column, check colSum
+            if j == 8: # Reached end of column, check columns
                 if not self.has_duplicates(col1):
                     return False
                 col1 = []
@@ -110,7 +130,3 @@ class Solution(object):
             
         
         return True
-        """
-        :type board: List[List[str]]
-        :rtype: bool
-        """
