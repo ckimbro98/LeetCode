@@ -1,0 +1,76 @@
+class Solution(object):
+    def intToRoman(self, num):
+        romanNums = {1: 'I', 5: 'V', 10: 'X', 50: 'L', 100: 'C', 500: 'D', 1000: 'M'}
+        rome = ""
+        while num >= 1000:
+            rome = rome + romanNums[1000]
+            num -= 1000
+
+        while num >= 900:
+            rome = rome + romanNums [100] + romanNums[1000]
+            num -= 900
+        
+        while num >= 500:
+            rome = rome + romanNums[500]
+            num -= 500
+
+        while num >= 400:
+            rome = rome + romanNums [100] + romanNums[500]
+            num -= 400
+
+        while num >= 100:
+            rome = rome + romanNums[100]
+            num -= 100
+
+        while num >= 90:
+            rome = rome + romanNums [10] + romanNums[100]
+            num -= 90
+
+        while num >= 50:
+            rome = rome + romanNums[50]
+            num -= 50    
+
+        while num >= 40:
+            rome = rome + romanNums [10] + romanNums[50]
+            num -= 40
+
+        while num >= 10:
+            rome = rome + romanNums[10]
+            num -= 10  
+
+        while num >= 9:
+            rome = rome + romanNums [1] + romanNums[10]
+            num -= 9 
+
+        while num >= 5:
+            rome = rome + romanNums[5]
+            num -= 5 
+
+        while num >= 4:
+            rome = rome + romanNums [1] + romanNums[5]
+            num -= 4   
+
+        while num >= 1:
+            rome = rome + romanNums[1]
+            num -= 1   
+            
+        return rome
+
+        """'
+        :type num: int
+        :rtype: str
+        """
+
+## MORE LINE EFFICIENT CODE BELOW
+
+class Solution(object):
+    def intToRoman(self, num):
+        romanNums = {1000: 'M', 900: 'CM', 500: 'D', 400: 'CD', 100: 'C', 90: 'XC', 50: 'L', 40: 'XL', 10: 'X', 9: 'IX', 5: 'V', 4: 'IV', 1: 'I'}
+        rome = ""
+        
+        for value in sorted(romanNums, reverse=True):
+            while num >= value:
+                rome += romanNums[value]
+                num -= value
+                
+        return rome
