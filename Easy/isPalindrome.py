@@ -6,8 +6,8 @@ class Solution:
 
         for i in s:
             if i.isalnum():
-                backward.append(i)
-                forward.insert(0, i)
+                forward.append(i)
+                backward.insert(0, i)
 
         if forward == backward:
             return True
